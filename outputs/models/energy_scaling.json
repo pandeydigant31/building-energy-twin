@@ -1,0 +1,8 @@
+{
+  "coef_cooling": 7.667882010841272,
+  "coef_heating": 4.236122354582584,
+  "baseload_occupied_kWh": 889.6273069148937,
+  "baseload_unoccupied_kWh": 610.2018340584315,
+  "T_heat_setpoint": 21.0,
+  "T_cool_setpoint": 23.5
+}

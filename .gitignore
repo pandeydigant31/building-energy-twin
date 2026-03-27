@@ -1,7 +1,5 @@
 data/raw/
 data/processed/
-outputs/models/*.pt
-outputs/models/*.pkl
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
