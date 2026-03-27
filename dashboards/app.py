@@ -54,9 +54,20 @@ SCHEDULES = {
 
 @st.cache_data
 def get_data():
-    meta = load_metadata(BUILDING_ID)
-    df = load_building_data(BUILDING_ID, SITE_ID)
-    df = df.loc["2017"]  # Use 2017 only (2016 has distribution shift)
+    # Try loading from raw BDG2 data; fall back to bundled parquet (Streamlit Cloud)
+    demo_parquet = PROJECT_ROOT / "outputs/demo_data_2017.parquet"
+    raw_data_exists = (PROJECT_ROOT / "data/raw/bdg2").exists()
+
+    if raw_data_exists:
+        meta = load_metadata(BUILDING_ID)
+        df = load_building_data(BUILDING_ID, SITE_ID)
+        df = df.loc["2017"]
+    elif demo_parquet.exists():
+        df = pd.read_parquet(demo_parquet)
+        meta = {"primaryspaceusage": "Office", "sqm": 6582.4}
+    else:
+        st.error("No data found. Run `python train.py` first or ensure demo_data_2017.parquet exists.")
+        st.stop()
     return df, meta
 
 
